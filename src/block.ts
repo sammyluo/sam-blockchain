@@ -18,6 +18,10 @@ class Block {
       Hash: ${this.hash.substring(0, 10)}
       Data: ${this.data}`;
   };
+
+  static genesis = () => {
+    return new Block(new Date(), "-----", "f1r57-h45h", []);
+  };
 }
 
 export default Block;
