@@ -6,7 +6,7 @@ class Block {
   timestamp: number;
   lastHash: string;
   hash: string;
-  data: any;
+  data: BlockData;
 
   constructor(
     timestamp: number,
