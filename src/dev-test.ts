@@ -1,5 +1,3 @@
 import Block from "./block";
 
-const block = new Block(new Date(), "bar", "zoo", "baz");
-console.log(block.toString());
-console.log(Block.genesis().toString());
+console.log(Block.mineBlock(Block.genesis(), "somedata").toString());

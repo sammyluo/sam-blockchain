@@ -1,10 +1,19 @@
+import { SHA256 } from "crypto-js";
+
+type BlockData = any;
+
 class Block {
-  timestamp: Date;
+  timestamp: number;
   lastHash: string;
   hash: string;
   data: any;
 
-  constructor(timestamp: Date, lastHash: string, hash: string, data: any) {
+  constructor(
+    timestamp: number,
+    lastHash: string,
+    hash: string,
+    data: BlockData
+  ) {
     this.timestamp = timestamp;
     this.lastHash = lastHash;
     this.hash = hash;
@@ -20,7 +29,19 @@ class Block {
   };
 
   static genesis = () => {
-    return new Block(new Date(), "-----", "f1r57-h45h", []);
+    return new Block(Date.now(), "-----", "f1r57-h45h", []);
+  };
+
+  static mineBlock = (lastBlock: Block, data: BlockData) => {
+    const timestamp = Date.now();
+    const lastHash = lastBlock.hash;
+    const hash = Block.hash(timestamp, lastHash, data);
+
+    return new Block(timestamp, lastHash, hash, data);
+  };
+
+  static hash = (timestamp: number, lastHash: string, data: BlockData) => {
+    return SHA256(`${timestamp}${lastHash}${data}`).toString();
   };
 }
 
